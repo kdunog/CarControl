@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>AutoCompare</title>
+  <style>
+    body { background:#1d1f21; color:#eaeaea; font-family: Arial, sans-serif; margin:0; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px; }
+    h1 { margin: 0 0 8px; }
+    p.muted { color:#bdbdbd; margin:0 0 24px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .card { background:#2a2d2f; border:1px solid #3a3f44; border-radius:10px; padding:20px; }
+    .btn { display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:bold; border:1px solid #4b72ff; color:#eaeaea; background:#2b3a73; }
+    .btn:hover { filter:brightness(1.1); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>AutoCompare</h1>
+    <p class="muted">Escolha o que deseja fazer</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Gerenciar Carros</h3>
+        <p>Cadastre carros e veja seus atributos.</p>
+        <a class="btn" href="/carros">Abrir</a>
+      </div>
+      <div class="card">
+        <h3>Comparador</h3>
+        <p>Compare dois carros e veja quem vence em preço, consumo e potência.</p>
+        <a class="btn" href="/comparador">Abrir</a>
+      </div>
+      <div class="card">
+        <h3>H2 Console</h3>
+        <p>Inspecione os dados no banco em memória.</p>
+        <a class="btn" href="/h2-console" target="_blank">Abrir</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

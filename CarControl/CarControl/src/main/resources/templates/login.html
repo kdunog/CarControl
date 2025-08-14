@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Restrito</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            transition: background-image 0.8s ease;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 5%;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8a2077c9-7a2a-4040-91b4-ad5ea1e3ba92.png');
+            background-position: right center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            height: 500px;
+            animation: fadeIn 0.8s ease-out forwards;
+            margin: 2rem;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container {
+            display: none;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            padding: 3rem;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-container.show {
+            display: flex;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: -1px;
+            z-index: 1;
+        }
+        
+        .form-option {
+            background: rgba(10, 10, 10, 0.8);
+            border: none;
+            padding: 1rem 2rem;
+            color: #aaa;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-option.active {
+            background: rgba(10, 10, 10, 0.95);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 123, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            color: #fff;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff7b00, #ff0084);
+            border-radius: 3px;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 0;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 1px solid #444;
+            outline: none;
+            background: transparent;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-bottom-color: #ff7b00;
+        }
+
+        label {
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            color: #aaa;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        input:focus ~ label,
+        input:not(:placeholder-shown) ~ label {
+            top: -1rem;
+            font-size: 0.8rem;
+            color: #ff7b00;
+            animation: labelBounce 0.4s ease;
+        }
+        
+        @keyframes labelBounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff7b00, #ff0084);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 123, 0, 0.4);
+            animation: pulse 0.5s ease infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1) translateY(-3px); }
+            to { transform: scale(1.05) translateY(-3px); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                height: auto;
+                flex-direction: column;
+            }
+
+            .form-container {
+                width: 100%;
+                height: auto;
+                position: relative;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-options">
+            <button id="showRegister" class="form-option active">Cadastro</button>
+            <button id="showLogin" class="form-option">Login</button>
+        </div>
+        <div class="form-container register-container show">
+            <form method="post" action="register.jsp">
+                <h2>Criar Conta</h2>
+                <div class="input-group">
+                    <input type="text" id="registerName" required placeholder=" ">
+                    <label for="registerName">Nome</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="registerEmail" required placeholder=" ">
+                    <label for="registerEmail">E-mail</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" required placeholder=" ">
+                    <label for="registerPassword">Senha</label>
+                </div>
+                <button type="submit">Registrar</button>
+            </form>
+        </div>
+
+        <div class="form-container login-container">
+            <form method="post" action="login.jsp">
+                <h2>Login</h2>
+                <div class="input-group">
+                    <input type="email" id="loginEmail" required placeholder=" ">
+                    <label for="loginEmail">E-mail</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" required placeholder=" ">
+                    <label for="loginPassword">Senha</label>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('showRegister').addEventListener('click', function() {
+            document.querySelector('.register-container').classList.add('show');
+            document.querySelector('.login-container').classList.remove('show');
+            this.classList.add('active');
+            document.getElementById('showLogin').classList.remove('active');
+        });
+        
+        document.getElementById('showLogin').addEventListener('click', function() {
+            document.querySelector('.login-container').classList.add('show');
+            document.querySelector('.register-container').classList.remove('show');
+            this.classList.add('active');
+            document.getElementById('showRegister').classList.remove('active');
+        });
+    </script>
+</body>
+</html>

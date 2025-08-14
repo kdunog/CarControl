@@ -9,18 +9,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tb_carros")
-public class Carro {
+@Table(name = "tb_clientes")
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String modelo;
-    private String cor;
-    private String fabricante;
-    private int ano;
-    private double preco;
-    private double consumo;
-    private int potencia;
-}
+    private String nome;
+    private String email;
+    private String senha;
 
+}
