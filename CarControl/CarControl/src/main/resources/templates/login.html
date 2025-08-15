@@ -193,18 +193,18 @@
             <button id="showLogin" class="form-option">Login</button>
         </div>
         <div class="form-container register-container show">
-            <form method="post" action="register.jsp">
+            <form method="post" action="/login">
                 <h2>Criar Conta</h2>
                 <div class="input-group">
-                    <input type="text" id="registerName" required placeholder=" ">
+                    <input type="text" id="registerName" name="nome" required placeholder=" ">
                     <label for="registerName">Nome</label>
                 </div>
                 <div class="input-group">
-                    <input type="email" id="registerEmail" required placeholder=" ">
+                    <input type="email" id="registerEmail" name="email" required placeholder=" ">
                     <label for="registerEmail">E-mail</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="registerPassword" required placeholder=" ">
+                    <input type="password" id="registerPassword" name="senha" required placeholder=" ">
                     <label for="registerPassword">Senha</label>
                 </div>
                 <button type="submit">Registrar</button>
@@ -212,14 +212,14 @@
         </div>
 
         <div class="form-container login-container">
-            <form method="post" action="login.jsp">
+            <form method="post" action="/login">
                 <h2>Login</h2>
                 <div class="input-group">
-                    <input type="email" id="loginEmail" required placeholder=" ">
+                    <input type="email" id="loginEmail" name="email" required placeholder=" ">
                     <label for="loginEmail">E-mail</label>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="loginPassword" required placeholder=" ">
+                    <input type="password" id="loginPassword" name="senha" required placeholder=" ">
                     <label for="loginPassword">Senha</label>
                 </div>
                 <button type="submit">Entrar</button>
