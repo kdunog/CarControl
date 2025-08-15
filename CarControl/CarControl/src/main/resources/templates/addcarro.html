@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Carros</title>
+  <style>
+    body { background:#1d1f21; color:#eaeaea; font-family: Arial, sans-serif; margin:0; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 32px; }
+    h1 { margin-bottom:16px; }
+    .actions { margin-bottom: 16px; }
+    .btn { display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:bold; border:1px solid #4b72ff; color:#eaeaea; background:#2b3a73; margin-right:8px;}
+    .btn.secondary { border-color:#777; background:#333; }
+    table { width: 100%; border-collapse: collapse; background:#232527; border:1px solid #3a3f44; }
+    th, td { padding: 12px; border-bottom:1px solid #3a3f44; text-align:left; }
+    th { background:#2a2d2f; }
+    tr:hover { background:#2b2f32; }
+    .pill { padding:4px 8px; border-radius:999px; border:1px solid #3a3f44; background:#2a2d2f; }
+    a.link { color:#9bb0ff; text-decoration:none; }
+    a.link:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Carros</h1>
+  <div class="actions">
+    <a class="btn" href="/carros/novo">Adicionar Carro</a>
+    <a class="btn secondary" href="/">Voltar</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Ano</th>
+        <th>Preço (R$)</th>
+        <th>Consumo (km/l)</th>
+        <th>Potência (cv)</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="c : ${carros}">
+        <td th:text="${c.marca}"></td>
+        <td th:text="${c.modelo}"></td>
+        <td th:text="${c.ano}"></td>
+        <td th:text="${#numbers.formatDecimal(c.preco, 1, 2)}"></td>
+        <td th:text="${#numbers.formatDecimal(c.consumo, 1, 1)}"></td>
+        <td th:text="${c.potencia}"></td>
+        <td>
+          <a class="link" th:href="@{'/carros/' + ${c.id}}">Ver</a> · 
+          <a class="link" th:href="@{'/carros/deletar/' + ${c.id}}">Excluir</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

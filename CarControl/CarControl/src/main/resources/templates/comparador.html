@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparador</title>
+  <style>
+    body { background:#1d1f21; color:#eaeaea; font-family: Arial, sans-serif; margin:0; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 32px; }
+    h1 { margin-bottom:16px; }
+    form.box { background:#232527; padding:16px; border:1px solid #3a3f44; border-radius:10px; margin-bottom:20px; }
+    select { width:100%; padding:10px; background:#2a2d2f; color:#eaeaea; border:1px solid #3a3f44; border-radius:8px; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    .btn { display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:bold; border:1px solid #4b72ff; color:#eaeaea; background:#2b3a73; cursor:pointer; }
+    .btn.secondary { border-color:#777; background:#333; }
+    table { width: 100%; border-collapse: collapse; background:#232527; border:1px solid #3a3f44; }
+    th, td { padding: 12px; border-bottom:1px solid #3a3f44; text-align:left; }
+    th { background:#2a2d2f; }
+    tr:hover { background:#2b2f32; }
+    .win { border:2px solid #50fa7b; border-radius:6px; padding:6px; }
+    .muted { color:#bdbdbd; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Comparador de Carros</h1>
+  <form class="box" method="get" action="/comparador">
+    <div class="row">
+      <div>
+        <label>Carro A</label>
+        <select name="a">
+          <option th:each="c : ${carros}" th:value="${c.id}" th:text="${c.marca + ' ' + c.modelo + ' (' + c.ano + ')'}" 
+                  th:selected="${param.a} == ${c.id}"></option>
+        </select>
+      </div>
+      <div>
+        <label>Carro B</label>
+        <select name="b">
+          <option th:each="c : ${carros}" th:value="${c.id}" th:text="${c.marca + ' ' + c.modelo + ' (' + c.ano + ')'}" 
+                  th:selected="${param.b} == ${c.id}"></option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <button class="btn" type="submit">Comparar</button>
+      <a class="btn secondary" href="/">Voltar</a>
+    </div>
+  </form>
+
+  <div th:if="${carroA != null}">
+    <h3>Resultado</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Atributo</th>
+          <th th:text="${carroA.marca + ' ' + carroA.modelo}"></th>
+          <th th:text="${carroB.marca + ' ' + carroB.modelo}"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Preço (R$)</td>
+          <td th:text="${#numbers.formatDecimal(carroA.preco,1,2)}" th:classappend="${resultado.maisBarato == carroA.modelo} ? ' win' : ''"></td>
+          <td th:text="${#numbers.formatDecimal(carroB.preco,1,2)}" th:classappend="${resultado.maisBarato == carroB.modelo} ? ' win' : ''"></td>
+        </tr>
+        <tr>
+          <td>Consumo (km/l)</td>
+          <td th:text="${#numbers.formatDecimal(carroA.consumo,1,1)}" th:classappend="${resultado.maisEconomico == carroA.modelo} ? ' win' : ''"></td>
+          <td th:text="${#numbers.formatDecimal(carroB.consumo,1,1)}" th:classappend="${resultado.maisEconomico == carroB.modelo} ? ' win' : ''"></td>
+        </tr>
+        <tr>
+          <td>Potência (cv)</td>
+          <td th:text="${carroA.potencia}" th:classappend="${resultado.maisPotente == carroA.modelo} ? ' win' : ''"></td>
+          <td th:text="${carroB.potencia}" th:classappend="${resultado.maisPotente == carroB.modelo} ? ' win' : ''"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="muted" style="margin-top:12px;">Verde indica vencedor do atributo.</p>
+  </div>
+</div>
+</body>
+</html>
